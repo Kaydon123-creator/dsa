@@ -6,36 +6,19 @@
 #         self.right = right
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
-        
-        res = root.val
-        stack = [(root, False)]  # (node, visited)
-        path_sum = {}  # stores best downward path for each node
-        
-        while stack:
-            node, visited = stack.pop()
-            
-            if not node:
-                continue
-            
-            if visited:
-                # Now both children are processed
-                left_sum = max(0, path_sum.get(node.left, 0))
-                right_sum = max(0, path_sum.get(node.right, 0))
-                
-                # Update global max
-                res = max(res, left_sum + right_sum + node.val)
-                
-                # Store best downward path (return value in recursion)
-                path_sum[node] = max(left_sum, right_sum) + node.val
-            else:
-                # Postorder: push node again as visited, then children
-                stack.append((node, True))
-                stack.append((node.right, False))
-                stack.append((node.left, False))
-        
-        return res
+        result = float("-inf")
+        def dfs(root):
+            nonlocal result
+            if not root :
+                return 0 
+            leftMax = max(0,dfs(root.left))
+            rightMax = max(0,dfs(root.right))
+            result = max(result, root.val+leftMax+rightMax)
+            return root.val + max(leftMax, rightMax)
+        dfs(root)
+        return result
+
+
 
 
 
