@@ -6,10 +6,10 @@ class Solution:
         print(candidates)
 
 
-        def backTrack(debut, curr):
-            if sum(curr)> target:
+        def backTrack(debut, curr, curr_sum):
+            if curr_sum> target:
                 return 
-            if sum(curr) == target:
+            if curr_sum == target:
                 result.append(curr[:])
                 return 
     
@@ -17,8 +17,9 @@ class Solution:
                 if i > debut and candidates[i] == candidates[i-1]:
                     continue
                 curr.append(candidates[i])
-                backTrack(i+1, curr)
-                curr.pop()
-        backTrack(0,[])
+                curr_sum+= candidates[i]
+                backTrack(i+1, curr, curr_sum)
+                curr_sum -= curr.pop()
+        backTrack(0,[], 0)
         return result
         
