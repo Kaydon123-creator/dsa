@@ -1,28 +1,39 @@
 class Solution:
     def findRedundantConnection(self, edges: list[list[int]]) -> list[int]:
+        n = len(edges)
+        rank = [0] * (n+1)
+        parents = list(range(n+1))
 
-        graph = defaultdict(list)
-        visited = set()
-        flag =False 
-        def dfs(node, parent, visited):
-            nonlocal flag
-            visited.add(node)
-            for neighbor in graph[node]:
-                if neighbor == parent:
-                    continue
-                if neighbor not in visited:
-                    dfs(neighbor, node, visited)
-                else:
-                    flag = True
-            return flag
+        def find(n1):
+            res = n1 
+            while res!= parents[res]:
+                res = parents[res] 
         
-        for node, neighbor in edges:
-            graph[node].append(neighbor)
-            graph[neighbor].append(node)
-            visited = set()
-            if dfs(node, 1, visited):
-                return (node, neighbor)
-        return -1
+            return res 
+
+        def union(n1,n2):
+            root1 = find(n1)
+            root2 = find(n2)
+
+            if root1 == root2:
+                return False
+            
+            if rank[root1] > rank[root2]:
+                parents[root2] = root1 
+            elif rank[root1] < rank[root2]:
+                parents[root1] = root2
+            else:
+                parents[root2] = root1 
+                rank[root2]+=1 
+            return True
+
+        for x,y in edges:
+            res = union(x,y)
+            if not res:
+                return (x,y)
+            
+        
+        
             
                 
         
