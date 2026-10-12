@@ -7,6 +7,7 @@ class Solution:
         def find(n1):
             res = n1 
             while res!= parents[res]:
+                parents[res] = parents[parents[res]]
                 res = parents[res] 
         
             return res 
@@ -24,7 +25,7 @@ class Solution:
                 parents[root1] = root2
             else:
                 parents[root2] = root1 
-                rank[root2]+=1 
+                rank[root1]+=1 
             return True
 
         for x,y in edges:
