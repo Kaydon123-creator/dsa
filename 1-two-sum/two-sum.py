@@ -3,12 +3,12 @@ class Solution:
 
         dic = {}
         for i in range(len(nums)):
-            if nums[i] not in dic:
-                dic[nums[i]] = i 
             
-
-        for k in range(len(nums)):
-            if target-nums[k] in dic and dic[target-nums[k]]!=k:
-                return [dic[target-nums[k]],k]
-                
-        
+            if (target - nums[i]) not in dic:
+           
+                dic[(target - nums[i])] = i 
+            if nums[i] in dic and dic[nums[i]] != i:
+                return [i, dic[nums[i]]]
+          
+     
+      
