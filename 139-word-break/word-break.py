@@ -5,19 +5,28 @@ class Solution:
         queue = deque([0])
         n = len(s)
         seen = set()
-        while queue:
-            index = queue.popleft()
+        @cache
+        def dp(index):
             if index == n:
                 return True
-            
+
             for i in range(index, n):
-                if s[index:i+1] in words and (i+1) not in seen:
-                    seen.add((i+1))
-                    queue.append(i+1)
-            
-        return False
+                if s[index:i+1] in words:
+                    if dp(i+1):
+                        return True
+            return False
+
+        return dp(0)
                 
 
+
+
+# a a a b 
+
+# a aa  
+ 
+
+                       
 
 
 
