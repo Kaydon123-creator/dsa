@@ -1,25 +1,23 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
         n = len(s)
-        result = 0 
         @cache
-        def dfs(index):
-            nonlocal result
-            if index == n:
+        def dp(i):
+            if i>=n:
                 return 1
-            curr = ""
-            for i in range(index, n):
-                if s[i] == "0" and not curr:
-                    break
-                curr += (s[i])
-                if int(curr) <= 26 :
-                    result+= dfs(i+1)
-                else:
-                    break 
-            return result 
-                
-        dfs(0)
-        return result
+            res = 0
+            if int(s[i]) == 0:
+                return 0
+            res = dp(i+1) 
+            if i < n - 1 and int(s[i]+s[i+1]) <= 26:
+                res+= dp(i+2)
+            
+            return res
+
+        return dp(0)
+
+
+        
                 
 
         
