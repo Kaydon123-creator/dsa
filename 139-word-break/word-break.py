@@ -1,21 +1,26 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: list[str]) -> bool:
+       
+        words = set(wordDict)
         queue = deque([0])
-        seen = set(wordDict)
-        visited = set()
+        n = len(s)
+        seen = set()
         while queue:
             index = queue.popleft()
-  
-            if index == len(s):
+            if index == n:
                 return True
             
-            for i in range(index + 1, len(s)+1):
-                if i not in visited and s[index:i] in seen:
-                    visited.add(i)
-                    print(s[index:i], index, 1)
-                    queue.append(i)
-
-        return False
+            for i in range(index, n):
+                if s[index:i+1] in words and (i+1) not in seen:
+                    seen.add((i+1))
+                    queue.append(i+1)
             
+        return False
+                
 
-        
+
+
+
+
+
+
