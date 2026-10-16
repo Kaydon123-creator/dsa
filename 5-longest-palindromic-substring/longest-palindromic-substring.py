@@ -12,7 +12,7 @@ class Solution:
         for i in range(n):
             s1 = extend(i,i)
             s2 = extend(i,i+1)
-            print(i, "s1" , s1, "s2", s2)
+            
             if len(s1) > len(result):
                 result = s1
             if len(s2) > len(result):
