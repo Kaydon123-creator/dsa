@@ -1,21 +1,33 @@
 class Solution:
     def longestConsecutive(self, nums: list[int]) -> int:
-        seen = set(nums)
-        res = 0 
-        ans = 0 
-        nums = list(set(nums))
-        for num in nums:
-            if num-1 in seen:
-                continue
-            else:
-                curr = 1
-                while num+1 in seen:
-                    curr+=1
-                    num = num+1 
-                res = max(res,curr)
-        return res
 
-                    
+        #store distinct numbers
+        set_of_nums = set(nums)
+
+        #remove duplicates 
+        nums = list(set_of_nums)
+
+        result = 0 
+
+        for num in nums:
+
+            if num - 1 in set_of_nums:
+                continue 
+            curr = 1 
+            #num is the start of a new_subsequence
+            start = num 
+            #tcheck if successor is in the array  
+            while start + 1 in set_of_nums:
+                start+=1 
+                curr+=1 
+
+            result = max(result, curr)
+
+        return result 
+
+
+            
+       
 
         
 
