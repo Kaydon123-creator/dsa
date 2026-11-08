@@ -15,6 +15,7 @@ class Solution:
                 ans = float("inf")
 
                 for c in coins:
+                    res = dp(cumul + c)
                     ans = min(1 + dp(cumul + c), ans) if dp(cumul+c) != -1 else ans
 
                 return ans if ans != float("inf") else -1
